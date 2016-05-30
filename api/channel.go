@@ -209,7 +209,7 @@ func updateChannel(c *Context, w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !strings.Contains(channelMember.Roles, model.CHANNEL_ROLE_ADMIN) && !strings.Contains(teamMember.Roles, model.ROLE_TEAM_ADMIN) {
+		if !strings.Contains(channelMember.Roles, model.CHANNEL_ROLE_ADMIN) && !strings.Contains(teamMember.Roles, model.ROLE_TEAM_ADMIN) && !c.IsSystemAdmin() {
 			c.Err = model.NewLocAppError("updateChannel", "api.channel.update_channel.permission.app_error", nil, "")
 			c.Err.StatusCode = http.StatusForbidden
 			return
@@ -674,7 +674,7 @@ func deleteChannel(c *Context, w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !strings.Contains(channelMember.Roles, model.CHANNEL_ROLE_ADMIN) && !strings.Contains(teamMember.Roles, model.ROLE_TEAM_ADMIN) {
+		if !strings.Contains(channelMember.Roles, model.CHANNEL_ROLE_ADMIN) && !strings.Contains(teamMember.Roles, model.ROLE_TEAM_ADMIN) && !c.IsSystemAdmin() {
 			c.Err = model.NewLocAppError("deleteChannel", "api.channel.delete_channel.permissions.app_error", nil, "")
 			c.Err.StatusCode = http.StatusForbidden
 			return
